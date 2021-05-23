@@ -1,5 +1,6 @@
 const express = require('express');
 const route = require('./routes');
+const middlewares = require('./middlewares');
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,8 @@ app.get('/', (_request, response) => {
 
 app
   .use('/user', route.userRoute)
-  .use('/categorie', route.categorieRoute);
+  .use('/categorie', route.categorieRoute)
+  .use('/post', route.blogPostRoute)
+  .use(middlewares.errorMiddleware);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));

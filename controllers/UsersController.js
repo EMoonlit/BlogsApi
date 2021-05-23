@@ -9,7 +9,7 @@ const getUsers = async (_req, res, next) => {
     return res.status(StatusCodes.OK).json(result);
   } catch (err) {
     console.log(clc.redBright(`ERRO getUsers controller: ${err.message}`));
-    throw new Error(err);
+    next(err);
   }
 };
 
@@ -19,11 +19,15 @@ const getUsersById = async (req, res) => {
   return res.status(StatusCodes.OK).json({ message: result });
 };
 
-const createUser = (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const result = { userId: id, userName: name };
-  return res.status(StatusCodes.OK).json({ message: result });
+const createUser = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const result = await userService.createUser(data);
+    return res.status(StatusCodes.CREATED).json(result);
+  } catch (err) {
+   console.log(clc.redBright(err.message));
+   next(err);
+  }
 };
 
 const updateUser = (req, res) => {
