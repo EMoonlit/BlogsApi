@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
         unique: true,
       }
-    }, {timestamps: false });
+    });
 
   },
 
