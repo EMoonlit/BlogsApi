@@ -5,7 +5,16 @@ const { Users } = require('../models');
 
 const getUsers = async () => {
   const result = await Users.findAll();
-  return result;
+  const removePassword = result.map((e) => (
+    {
+      id: e.id,
+      displayName: e.displayName,
+      email: e.email,
+      image: e.image,
+    }
+  ));
+  // console.log('removePassword', removePassword);
+  return removePassword;
 };
 
 const getUsersById = async (id) => {

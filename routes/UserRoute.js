@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const { UsersController } = require('../controllers');
+const middleWare = require('../middlewares');
 
 const userRoute = Router();
 
 userRoute
-  .get('/', UsersController.getUsers)
   .get('/:id', UsersController.getUsersById)
+  .get('/', middleWare.authMiddleware, UsersController.getUsers)
   .post('/', UsersController.createUser)
   .put('/:id', UsersController.updateUser)
   .delete('/em', UsersController.deleteUser);
