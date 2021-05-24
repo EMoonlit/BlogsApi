@@ -1,13 +1,13 @@
-const { categories } = require('../models');
+const { Categories } = require('../models');
 // const { errorMessages } = require('../helpers');
 
 const getCategories = async () => {
-  const result = await categories.findAll();
+  const result = await Categories.findAll();
   return result;
 };
 
 const getCategoriesById = async (id) => {
-  const result = await categories.findByPk(id);
+  const result = await Categories.findByPk(id);
   return result;
 };
 

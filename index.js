@@ -16,6 +16,7 @@ app
   .use('/user', route.userRoute)
   .use('/categorie', route.categorieRoute)
   .use('/post', route.blogPostRoute)
+  .use('/login', route.loginRoute)
   .use(middlewares.errorMiddleware);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));

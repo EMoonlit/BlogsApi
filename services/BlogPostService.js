@@ -1,13 +1,13 @@
-const { blogPosts } = require('../models');
+const { BlogPosts } = require('../models');
 // const { errorMessages } = require('../helpers');
 
 const getPost = async () => {
-  const result = await blogPosts.findAll();
+  const result = await BlogPosts.findAll();
   return result;
 };
 
 const getPostById = async (id) => {
-  const result = await blogPosts.findByPk(id);
+  const result = await BlogPosts.findByPk(id);
   return result;
 };
 

@@ -23,7 +23,7 @@ const createUser = async (req, res, next) => {
   try {
     const data = req.body;
     const result = await userService.createUser(data);
-    return res.status(StatusCodes.CREATED).json(result);
+    return res.status(StatusCodes.CREATED).json({ token: result });
   } catch (err) {
    console.log(clc.redBright(err.message));
    next(err);

@@ -1,15 +1,15 @@
 const clc = require('cli-color');
-const { validUserDate } = require('../helpers');
-const { users } = require('../models');
+const { validUserDate, authTools } = require('../helpers');
+const { Users } = require('../models');
 // const { errorMessages } = require('../helpers');
 
 const getUsers = async () => {
-  const result = await users.findAll();
+  const result = await Users.findAll();
   return result;
 };
 
 const getUsersById = async (id) => {
-  const result = await users.findByPk(id);
+  const result = await Users.findByPk(id);
   return result;
 };
 
@@ -19,9 +19,11 @@ const createUser = async (data) => {
   validUserDate.validEmail(email);
   validUserDate.validPassword(password);
   await validUserDate.userAlreadyExistis(email);
-  const result = await users.create({ displayName, email, password, image });
+  const result = await Users.create({ displayName, email, password, image });
+  const { id } = result.dataValues;
+  const token = authTools.generateToken({ id, displayName, email });
   console.log(clc.greenBright(result));
-  return result;
+  return token;
 };
 
 module.exports = {

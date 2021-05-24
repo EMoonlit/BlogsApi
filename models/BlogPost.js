@@ -1,5 +1,5 @@
 const definePostModel = (sequelize, DataTypes) => {
-  const Post = sequelize.define('blogPosts', {
+  const Post = sequelize.define('BlogPosts', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     published: DataTypes.DATE,
@@ -7,7 +7,7 @@ const definePostModel = (sequelize, DataTypes) => {
   });
 
   Post.associate = (models) => {
-    Post.belongsTo(models.users, { as: 'post', foreignKey: 'userId' });
+    Post.belongsTo(models.Users, { as: 'post', foreignKey: 'userId' });
   };
 
   return Post;
