@@ -3,6 +3,7 @@ const { BlogPosts } = require('../models');
 
 const getPost = async () => {
   const result = await BlogPosts.findAll();
+  console.log(result);
   return result;
 };
 

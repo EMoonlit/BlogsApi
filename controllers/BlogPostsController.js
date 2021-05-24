@@ -2,10 +2,10 @@ const { StatusCodes } = require('http-status-codes');
 const clc = require('cli-color');
 const { blogPostService } = require('../services');
 
-const getPosts = async (_req, res, next) => {
+const getPosts = async (_req, res) => {
   try {
-    const result = await blogPostService.getPosts();
-    if (result.isError) return next(result);
+    const result = await blogPostService.getPost();
+    // if (result.isError) return next(result);
     return res.status(StatusCodes.OK).json(result);
   } catch (err) {
     console.log(clc.redBright(`ERRO getPosts controller: ${err.message}`));
