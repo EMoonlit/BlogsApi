@@ -13,10 +13,16 @@ const getUsers = async (_req, res, next) => {
   }
 };
 
-const getUsersById = async (req, res) => {
+const getUsersById = async (req, res, next) => {
   const { id } = req.params;
-  const result = await userService.getUsersById(id);
-  return res.status(StatusCodes.OK).json({ message: result });
+  try {
+    const result = await userService.getUsersById(id);
+    if (result.isError) return next(result);
+    return res.status(StatusCodes.OK).json(result);
+  } catch (err) {
+    console.log(clc.redBright(`ERRO getUsers controller: ${err.message}`));
+    next(err);
+  }
 };
 
 const createUser = async (req, res, next) => {

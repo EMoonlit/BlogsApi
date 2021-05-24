@@ -1,7 +1,7 @@
 const clc = require('cli-color');
 const { validUserDate, authTools } = require('../helpers');
 const { Users } = require('../models');
-// const { errorMessages } = require('../helpers');
+const { errorMessages } = require('../helpers');
 
 const getUsers = async () => {
   const result = await Users.findAll();
@@ -19,6 +19,7 @@ const getUsers = async () => {
 
 const getUsersById = async (id) => {
   const result = await Users.findByPk(id);
+  if (!result) return errorMessages.USER_NOT_FOUND;
   return result;
 };
 

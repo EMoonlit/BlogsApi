@@ -5,7 +5,7 @@ const middleWare = require('../middlewares');
 const userRoute = Router();
 
 userRoute
-  .get('/:id', UsersController.getUsersById)
+  .get('/:id', middleWare.authMiddleware, UsersController.getUsersById)
   .get('/', middleWare.authMiddleware, UsersController.getUsers)
   .post('/', UsersController.createUser)
   .put('/:id', UsersController.updateUser)
