@@ -5,8 +5,8 @@ const middleWare = require('../middlewares');
 const categorieRoute = Router();
 
 categorieRoute
-  .get('/', CategoriesController.getCategories)
-  .get('/:id', CategoriesController.getCategoriesById)
+  .get('/:id', middleWare.authMiddleware, CategoriesController.getCategoriesById)
+  .get('/', middleWare.authMiddleware, CategoriesController.getCategories)
   .post('/', middleWare.authMiddleware, CategoriesController.createCategorie)
   .put('/:id', CategoriesController.updateCategorie)
   .delete('/em', CategoriesController.deleteCategorie);
