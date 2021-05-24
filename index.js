@@ -14,7 +14,7 @@ app.get('/', (_request, response) => {
 
 app
   .use('/user', route.userRoute)
-  .use('/categorie', route.categorieRoute)
+  .use('/categories', route.categorieRoute)
   .use('/post', route.blogPostRoute)
   .use('/login', route.loginRoute)
   .use(middlewares.errorMiddleware);

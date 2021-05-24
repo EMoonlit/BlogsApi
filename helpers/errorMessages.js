@@ -79,6 +79,12 @@ const errorMessages = {
     message: '"name" is required',
   },
 
+  CATEGORY_NAME_ALREADY_EXISTIS: {
+    isError: true,
+    status: StatusCodes.CONFLICT,
+    message: 'Category "name" already existis',
+  },
+
   TITLE_IS_REQUIRED: {
     isError: true,
     status: StatusCodes.BAD_REQUEST,

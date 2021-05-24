@@ -1,6 +1,6 @@
 // const Joi = require('joi');
 // const clc = require('cli-color');
-const { Users } = require('../models');
+const { Users, Categories } = require('../models');
 const errorMessages = require('./errorMessages');
 
 // const validDate = (date) => {
@@ -16,6 +16,16 @@ const errorMessages = require('./errorMessages');
 
 const validDisplayName = (displayName) => {
   if (!displayName || displayName.length < 8) throw errorMessages.INVALID_NAME_LENGTH;
+};
+
+const validCategoryName = (name) => {
+  if (!name || name === '') throw errorMessages.NAME_IS_REQUIRED;
+};
+
+const categoryAlreadyExistis = async (name) => {
+  const result = await Categories.findOne({ where: { name } });
+  // console.log('>>>', result);
+  if (result) throw errorMessages.CATEGORY_NAME_ALREADY_EXISTIS;
 };
 
 const validEmail = (email) => {
@@ -54,4 +64,6 @@ module.exports = {
   userAlreadyExistis,
   userNotExistis,
   verifyPassword,
+  validCategoryName,
+  categoryAlreadyExistis,
 };

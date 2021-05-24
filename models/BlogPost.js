@@ -4,7 +4,7 @@ const definePostModel = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
-  });
+  }, { timestamps: false });
 
   Post.associate = (models) => {
     Post.belongsTo(models.Users, { as: 'post', foreignKey: 'userId' });

@@ -16,14 +16,18 @@ const getCategories = async (_req, res, next) => {
 const getCategoriesById = async (req, res) => {
   const { id } = req.params;
   const result = await categorieService.getCategoriesById(id);
-  return res.status(StatusCodes.OK).json({ message: result });
+  return res.status(StatusCodes.OK).json(result);
 };
 
-const createCategorie = (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const result = { userId: id, userName: name };
-  return res.status(StatusCodes.OK).json({ message: result });
+const createCategorie = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    const result = await categorieService.createCategorie(name);
+    return res.status(StatusCodes.CREATED).json(result);
+  } catch (err) {
+    console.log(clc.redBright(`ERRO getUsers controller: ${err.message}`));
+    next(err);
+  }
 };
 
 const updateCategorie = (req, res) => {
