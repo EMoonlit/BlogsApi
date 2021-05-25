@@ -16,7 +16,7 @@ const getPosts = async (_req, res) => {
 const getPostsById = async (req, res, next) => {
   const { id } = req.params;
   const result = await blogPostService.getPostById(id);
-  if (result.isError) next(result);
+  if (result.isError) return next(result);
   return res.status(StatusCodes.OK).json(result);
 };
 
@@ -25,7 +25,7 @@ const createPost = async (req, res, next) => {
     const data = req.body;
     const userId = req.user.id;
     const result = await blogPostService.createPost(data, userId);
-    if (result.isError) next(result);
+    if (result.isError) return next(result);
     return res.status(StatusCodes.CREATED).json(result);
   } catch (err) {
     next(err);
