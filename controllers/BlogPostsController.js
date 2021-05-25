@@ -13,6 +13,18 @@ const getPosts = async (_req, res) => {
   }
 };
 
+const getPostByQueryParam = async (req, res, next) => {
+  const { q } = req.query;
+  try {
+    const result = await blogPostService.getPostByQuery(q);
+    return res.status(StatusCodes.OK).json(result);
+  } catch (err) {
+    console.log(err);
+    console.log(clc.redBright(err.message));
+    next(err);
+  }
+};
+
 const getPostsById = async (req, res, next) => {
   const { id } = req.params;
   const result = await blogPostService.getPostById(id);
@@ -67,4 +79,5 @@ module.exports = {
   createPost,
   updatePost,
   deletePost,
+  getPostByQueryParam,
 };

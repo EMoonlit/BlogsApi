@@ -1,14 +1,15 @@
 const { Router } = require('express');
 const { BlogPostsController } = require('../controllers');
-const meddleWare = require('../middlewares');
+const middleWare = require('../middlewares');
 
 const blogPostRoute = Router();
 
 blogPostRoute
-  .get('/', meddleWare.authMiddleware, BlogPostsController.getPosts)
-  .get('/:id', meddleWare.authMiddleware, BlogPostsController.getPostsById)
-  .post('/', meddleWare.authMiddleware, BlogPostsController.createPost)
-  .put('/:id', meddleWare.authMiddleware, BlogPostsController.updatePost)
-  .delete('/:id', meddleWare.authMiddleware, BlogPostsController.deletePost);
+  // .get('/post/search', middleWare.authMiddleware, BlogPostsController.getPostByQueryParam)
+  .get('/', middleWare.authMiddleware, BlogPostsController.getPosts)
+  .get('/:id', middleWare.authMiddleware, BlogPostsController.getPostsById)
+  .post('/', middleWare.authMiddleware, BlogPostsController.createPost)
+  .put('/:id', middleWare.authMiddleware, BlogPostsController.updatePost)
+  .delete('/:id', middleWare.authMiddleware, BlogPostsController.deletePost);
 
 module.exports = blogPostRoute;

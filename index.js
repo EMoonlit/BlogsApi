@@ -1,6 +1,7 @@
 const express = require('express');
 const route = require('./routes');
 const middlewares = require('./middlewares');
+const { BlogPostsController } = require('./controllers');
 
 const app = express();
 app.use(express.json());
@@ -11,6 +12,8 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (_request, response) => {
   response.send();
 });
+
+app.get('/post/search', middlewares.authMiddleware, BlogPostsController.getPostByQueryParam);
 
 app
   .use('/user', route.userRoute)

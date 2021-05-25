@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const clc = require('cli-color');
 const { BlogPosts, PostsCategories } = require('../models');
 const { validUserDate, errorMessages } = require('../helpers');
@@ -6,6 +7,23 @@ const getPost = async () => {
   const result = await BlogPosts.findAll({ include: ['user', 'categories'] });
   // const user = await BlogPosts.getUser();
   // console.log(user);
+  return result;
+};
+
+const getPostByQuery = async (q) => {
+  // const result = await BlogPosts.findAll({ where: { $or: [{ title: { $like: `%${q}%` } }, { content: { $like: `%${q}%` } }] } });
+  const result = await BlogPosts.findAll(
+    {
+      include: ['user', 'categories'],
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${q}%` } },
+          { content: { [Op.like]: `%${q}%` } },
+        ],
+      },
+    },
+  
+  );
   return result;
 };
 
@@ -57,4 +75,5 @@ module.exports = {
   createPost,
   editPostById,
   deletePostById,
+  getPostByQuery,
 };
