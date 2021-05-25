@@ -19,11 +19,16 @@ const getPostsById = async (req, res) => {
   return res.status(StatusCodes.OK).json({ message: result });
 };
 
-const createPost = (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const result = { userId: id, userName: name };
-  return res.status(StatusCodes.OK).json({ message: result });
+const createPost = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const userId = req.user.id;
+    const result = await blogPostService.createPost(data, userId);
+    if (result.isError) next(result);
+    return res.status(StatusCodes.CREATED).json(result);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const updatePost = (req, res) => {

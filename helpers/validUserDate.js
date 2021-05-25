@@ -56,6 +56,27 @@ const verifyPassword = (password, userPassword) => {
   if (password !== userPassword) throw errorMessages.INCORRECT_USERNAME_OR_PASSWORD;
 };
 
+const titleIsRequired = (title) => {
+  if (!title || title === '') throw errorMessages.TITLE_IS_REQUIRED; 
+};
+
+const contentIsRequired = (content) => {
+  if (!content || content === '') throw errorMessages.CONTENT_IS_REQUIRED;
+};
+
+const categoryIdIsRequired = (categoryIds) => {
+  if (!categoryIds || categoryIds.length === 0) throw errorMessages.CATEGORYID_IS_REQUIRED;
+};
+
+const categoryIdExistis = async (categoryIds) => {
+  const result = await Categories.findAll();
+  const categoryList = result.map((e) => (e.dataValues.id));
+  // const teste = categoryIds.find((e) => e === categoryList);
+  categoryIds.forEach((id) => {
+    if (categoryList.includes(id) === false) throw errorMessages.CATEGORYID_NOT_FOUND;
+  });
+};
+
 module.exports = {
   // validDate,
   validDisplayName,
@@ -66,4 +87,8 @@ module.exports = {
   verifyPassword,
   validCategoryName,
   categoryAlreadyExistis,
+  titleIsRequired,
+  contentIsRequired,
+  categoryIdIsRequired,
+  categoryIdExistis,
 };

@@ -2,8 +2,14 @@ const definePostModel = (sequelize, DataTypes) => {
   const Post = sequelize.define('BlogPosts', {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    published: DataTypes.DATE,
-    updated: DataTypes.DATE,
+    published: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.NOW,
+    },
+    updated: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.NOW,
+    },
   }, { timestamps: false });
 
   Post.associate = (models) => {
