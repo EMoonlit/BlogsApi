@@ -1,14 +1,16 @@
 const { BlogPosts, PostsCategories } = require('../models');
-const { validUserDate } = require('../helpers');
+const { validUserDate, errorMessages } = require('../helpers');
 
 const getPost = async () => {
-  const result = await BlogPosts.findAll();
-  console.log(result);
-  return result;
+  const result = await BlogPosts.findAll({ include: ['user', 'categories'] });
+// const user = await BlogPosts.getUser();
+// console.log(user);
+return result;
 };
 
 const getPostById = async (id) => {
-  const result = await BlogPosts.findByPk(id);
+  const result = await BlogPosts.findByPk(id, { include: ['user', 'categories'] });
+  if (!result) return errorMessages.POST_NOT_EXIST;
   return result;
 };
 
