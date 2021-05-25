@@ -1,6 +1,6 @@
 // const Joi = require('joi');
 // const clc = require('cli-color');
-const { Users, Categories } = require('../models');
+const { Users, Categories, BlogPosts } = require('../models');
 const errorMessages = require('./errorMessages');
 
 // const validDate = (date) => {
@@ -57,7 +57,7 @@ const verifyPassword = (password, userPassword) => {
 };
 
 const titleIsRequired = (title) => {
-  if (!title || title === '') throw errorMessages.TITLE_IS_REQUIRED; 
+  if (!title || title === '') throw errorMessages.TITLE_IS_REQUIRED;
 };
 
 const contentIsRequired = (content) => {
@@ -68,6 +68,10 @@ const categoryIdIsRequired = (categoryIds) => {
   if (!categoryIds || categoryIds.length === 0) throw errorMessages.CATEGORYID_IS_REQUIRED;
 };
 
+const categoriesCannotBeEdited = (categoryIds) => {
+  if (categoryIds || categoryIds === '') throw errorMessages.CATEGORIES_CANNOT_BE_EDITED;
+};
+
 const categoryIdExistis = async (categoryIds) => {
   const result = await Categories.findAll();
   const categoryList = result.map((e) => (e.dataValues.id));
@@ -75,6 +79,17 @@ const categoryIdExistis = async (categoryIds) => {
   categoryIds.forEach((id) => {
     if (categoryList.includes(id) === false) throw errorMessages.CATEGORYID_NOT_FOUND;
   });
+};
+
+const verifyPostExistis = async (id) => {
+  const result = await BlogPosts.findOne({ where: { id } });
+  if (!result) throw errorMessages.POST_NOT_EXIST;
+};
+
+const verifyUserId = async (id, userId) => {
+  const result = await BlogPosts.findOne({ where: { id, userId } });
+  console.log('result do veryfi user id', result);
+  if (!result) throw errorMessages.ONLY_CREATED_USER;
 };
 
 module.exports = {
@@ -91,4 +106,7 @@ module.exports = {
   contentIsRequired,
   categoryIdIsRequired,
   categoryIdExistis,
+  categoriesCannotBeEdited,
+  verifyUserId,
+  verifyPostExistis,
 };

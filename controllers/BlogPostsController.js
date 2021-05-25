@@ -32,17 +32,33 @@ const createPost = async (req, res, next) => {
   }
 };
 
-const updatePost = (req, res) => {
+const updatePost = async (req, res, next) => {
   const { id } = req.params;
-  const { name } = req.body;
-  const result = { userI: id, userName: name };
-  return res.status(StatusCodes.OK).json({ message: result });
+  const data = req.body;
+  const userId = req.user.id;
+  try {
+    const result = await blogPostService.editPostById(data, id, userId);
+    console.log(clc.greenBright(result));
+    return res.status(StatusCodes.OK).json(result);
+  } catch (err) {
+    console.log(err);
+    console.log(clc.redBright(err.message));
+    next(err);
+  }
 };
 
-const deletePost = (req, res) => {
-  const { id } = req.params;
-  const result = id;
-  return res.status(StatusCodes.OK).json({ message: result });
+const deletePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+    const result = await blogPostService.deletePostById(id, userId);
+    console.log(clc.bgRedBright(result));
+    return res.status(StatusCodes.NO_CONTENT).json();
+  } catch (err) {
+    console.log(err);
+    console.log(clc.redBright(err.message));
+    next(err);
+  }
 };
 
 module.exports = {

@@ -8,7 +8,7 @@ blogPostRoute
   .get('/', meddleWare.authMiddleware, BlogPostsController.getPosts)
   .get('/:id', meddleWare.authMiddleware, BlogPostsController.getPostsById)
   .post('/', meddleWare.authMiddleware, BlogPostsController.createPost)
-  .put('/:id', BlogPostsController.updatePost)
-  .delete('/em', BlogPostsController.deletePost);
+  .put('/:id', meddleWare.authMiddleware, BlogPostsController.updatePost)
+  .delete('/:id', meddleWare.authMiddleware, BlogPostsController.deletePost);
 
 module.exports = blogPostRoute;
