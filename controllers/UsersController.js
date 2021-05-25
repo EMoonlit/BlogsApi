@@ -43,10 +43,17 @@ const updateUser = (req, res) => {
   return res.status(StatusCodes.OK).json({ message: result });
 };
 
-const deleteUser = (req, res) => {
-  const { id } = req.params;
-  const result = id;
-  return res.status(StatusCodes.OK).json({ message: result });
+const deleteUser = async (req, res, next) => {
+  const userId = req.user.id;
+  try {
+    const result = await userService.deleteUser(userId);
+    console.log(result);
+    return res.status(StatusCodes.NO_CONTENT).json();    
+  } catch (err) {
+    console.log(err);
+    console.log(clc.redBright(err.message));
+    next(err);
+  }
 };
 
 module.exports = {

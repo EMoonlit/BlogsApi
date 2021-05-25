@@ -9,6 +9,6 @@ userRoute
   .get('/', middleWare.authMiddleware, UsersController.getUsers)
   .post('/', UsersController.createUser)
   .put('/:id', UsersController.updateUser)
-  .delete('/em', UsersController.deleteUser);
+  .delete('/me', middleWare.authMiddleware, UsersController.deleteUser);
 
 module.exports = userRoute;
