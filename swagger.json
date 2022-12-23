@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.0",
+  "info": 
+  {
+    "title": "Blogs API",
+    "description": "Projeto Trybe",
+    "contact": {
+      "email": "emoonlit@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "Api de teste"
+    }
+  ],
+  "paths": {
+    "/post": {
+      "post": {
+        "summary": "Cadastro de uma postagem",
+        "description": "Essa rota será responsável por cadastrar uma nova postagem",
+        "tag": ["Postagem"],
+        "requestBody": { 
+          "content": {
+            "application/jason": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          }
+        }
+      }
+    } 
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "categoryIds": {
+            "type": "array"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

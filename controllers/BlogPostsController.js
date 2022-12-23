@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+
 const clc = require('cli-color');
 const { blogPostService } = require('../services');
 
