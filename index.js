@@ -1,4 +1,6 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./swagger.json');
 const route = require('./routes');
 const middlewares = require('./middlewares');
 const { BlogPostsController } = require('./controllers');
@@ -20,6 +22,7 @@ app
   .use('/categories', route.categorieRoute)
   .use('/post', route.blogPostRoute)
   .use('/login', route.loginRoute)
+  .use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
   .use(middlewares.errorMiddleware);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
