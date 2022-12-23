@@ -17,6 +17,7 @@
     "swagger-ui-express": "^4.1.6"
   },
   "scripts": {
+    "init": "node index.js",
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
     "start": "node index.js",
     "drop": "npx sequelize-cli db:drop $",
